@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<svg width="640" height="200" viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>Layer 1</title>
+  <rect stroke="#000" x="-0.999872" id="svg_1" height="201.499806" width="641.999795" y="-0.999935" stroke-width="0" fill="#1a1a1a"/>
+  <g id="b">
+   <rect stroke="#000" rx="4" id="svg_3" height="97" width="113.999997" y="51" x="371.999345" stroke-opacity="null" stroke-width="0" fill="#dddddd"/>
+   <ellipse stroke="#000" ry="43.499999" rx="44.500001" id="svg_5" cy="99.500001" cx="428.999342" stroke-opacity="null" stroke-width="0" fill="#ff0000"/>
+  </g>
+  <g id="a">
+   <rect stroke="#000" rx="4" id="svg_9" height="97" width="113.999997" y="51" x="505.999345" stroke-opacity="null" stroke-width="0" fill="#dddddd"/>
+   <ellipse stroke="#000" ry="43.499999" rx="44.500001" id="svg_10" cy="99.500001" cx="562.999342" stroke-opacity="null" stroke-width="0" fill="#ff0000"/>
+  </g>
+  <g id="svg_39">
+   <rect rx="6" id="svg_38" height="45.993973" width="128.483164" y="76.503077" x="222.262816" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#dddddd"/>
+   <rect rx="8" id="select" height="21.497183" width="51.493253" y="89.251405" x="228.012069" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
+   <rect rx="8" id="start" height="21.497183" width="51.493253" y="89.251405" x="292.503616" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
+  </g>
+  <text font-weight="bold" xml:space="preserve" text-anchor="left" font-family="Helvetica, Arial, sans-serif" font-size="12" id="svg_42" y="72.253635" x="298.502832" stroke-opacity="null" stroke-width="0" stroke="#ffffff" fill="#ff0000">START</text>
+  <text font-weight="bold" xml:space="preserve" text-anchor="left" font-family="Helvetica, Arial, sans-serif" font-size="12" id="svg_44" y="72.253636" x="229.511871" stroke-opacity="null" stroke-width="0" stroke="#ffffff" fill="#ff0000">SELECT</text>
+  <text font-weight="bold" xml:space="preserve" text-anchor="left" font-family="Helvetica, Arial, sans-serif" font-size="19" id="svg_45" y="169.740861" x="470.480297" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#ff0000">B</text>
+  <text font-weight="bold" xml:space="preserve" text-anchor="left" font-family="Helvetica, Arial, sans-serif" font-size="19" id="svg_46" y="170.240796" x="607.96228" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#ff0000">A</text>
+  <g id="svg_47">
+   <rect stroke="#000" x="-0.999865" id="upleft" height="66.499942" width="66.999869" y="-0.24115" stroke-width="0" fill="#1a1a1a"/>
+   <rect id="up" stroke-width="2" stroke="#ffffff" rx="4" height="69.999481" width="66.000004" y="0.758655" x="65.991352" fill="#000000"/>
+   <rect stroke="#000" id="upright" height="66.000006" width="66.000004" y="-0.24115" x="131.982712" stroke-width="0" fill="#1a1a1a"/>
+   <rect stroke="#000" id="downleft" height="66.000006" width="66.999869" y="133.741287" x="-0.499931" stroke-width="0" fill="#1a1a1a"/>
+   <rect id="down" stroke="#ffffff" stroke-width="2" rx="4" height="67.999743" width="66.000004" y="130.741616" x="65.991352" fill="#000000"/>
+   <rect stroke="#000" id="downright" height="66.000006" width="66.000004" y="132.241484" x="132.482646" stroke-width="0" fill="#1a1a1a"/>
+   <rect id="left" stroke-width="2" stroke="#ffffff" rx="4" height="66.000006" width="69.499543" y="66.750002" x="0.499936" fill="#000000"/>
+   <rect id="right" stroke-width="2" stroke="#ffffff" rx="4" height="66.000006" width="69.499544" y="66.749999" x="128.483168" fill="#000000"/>
+   <rect stroke="#000" id="middle" height="66.999878" width="66.000004" y="66.250066" x="66.491287" stroke-opacity="null" stroke-width="0" fill="#000000"/>
+   <text xmlns="http://www.w3.org/2000/svg" font-weight="bold" xml:space="preserve" text-anchor="left" font-family="Helvetica, Arial, sans-serif" font-size="19" id="player" y="28.49807" x="449.003484" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#ffffff" fill="#ff0000">PLAYER 0</text>
+  </g>
+ </g>
+</svg>

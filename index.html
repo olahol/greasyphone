@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>GREASY PHONE</title>
+  <link rel="stylesheet" type="text/css" href="/public/main.css">
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+  <script src="/jsnes/lib/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/jsnes/lib/dynamicaudio-min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/jsnes/source/nes.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/jsnes/source/utils.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/jsnes/source/cpu.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/jsnes/source/keyboard.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/jsnes/source/mappers.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/jsnes/source/papu.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/jsnes/source/ppu.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/jsnes/source/rom.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/jsnes/source/ui.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+
+<div id="emulator">
+  <div id="bar">
+    <select id="selector">
+      <option value="none">No ROM</option>
+    </select>
+    <div id="status"></div>
+  </div>
+</div>
+
+<div id="controller">
+  <embed id="pad" src="/public/controller.svg" type="image/svg+xml" />
+</div>
+
+<h1 id="error"></h1>
+
+<script src="/public/nes.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/game.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/main.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
