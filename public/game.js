@@ -26,7 +26,7 @@
   };
 
   Game.prototype.type = function () {
-    if ("ontouchstart" in window) {
+    if (mobilecheck() && "ontouchstart" in window) {
       return "player";
     }
 
