@@ -2,7 +2,7 @@
 
 > Play NES using smartphones as a joypads.
 
-![demo](https://cdn.rawgit.com/olahol/greasyphone/master/demo.gif "Demo using devtools instead of a mobile cause I couldn't capture anything else.")
+![demo](https://cdn.jsdelivr.net/gh/olahol/greasyphone@master/demo.gif "Demo using devtools instead of a mobile cause I couldn't capture anything else.")
 
 ## Usage
 
