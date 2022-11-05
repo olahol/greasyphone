@@ -1,13 +1,30 @@
 package main
 
 import (
+	"embed"
 	"encoding/json"
-	"github.com/gin-gonic/gin"
-	"github.com/olahol/melody"
+	"io/fs"
 	"log"
 	"net/http"
 	"path/filepath"
 	"sync"
+
+	"github.com/gin-gonic/gin"
+	"github.com/olahol/melody"
+)
+
+var (
+	//go:embed jsnes/source/*.js
+	jsnesSourceDir embed.FS
+
+	//go:embed jsnes/lib/*.js
+	jsnesLibDir embed.FS
+
+	//go:embed public/*
+	publicDir embed.FS
+
+	//go:embed index.html
+	indexHTML []byte
 )
 
 type Command struct {
@@ -46,19 +63,29 @@ func (g *Game) Status() []byte {
 	return NewCommandJSON("status", data)
 }
 
+func MustSub(fsys fs.FS, dir string) fs.FS {
+	f, err := fs.Sub(fsys, dir)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return f
+}
+
 func main() {
 	r := gin.New()
 	m := melody.New()
 	g := &Game{}
 
-	r.Static("/jsnes", "./jsnes")
-
-	r.Static("/public", "./public")
+	r.StaticFS("/jsnes/lib/", http.FS(MustSub(jsnesLibDir, "jsnes/lib")))
+	r.StaticFS("/jsnes/source/", http.FS(MustSub(jsnesSourceDir, "jsnes/source")))
+	r.StaticFS("/public/", http.FS(MustSub(publicDir, "public")))
 
 	r.Static("/roms/", "./roms")
 
 	r.GET("/", func(c *gin.Context) {
-		http.ServeFile(c.Writer, c.Request, "index.html")
+		c.Writer.Write(indexHTML)
 	})
 
 	r.GET("/ws", func(c *gin.Context) {
