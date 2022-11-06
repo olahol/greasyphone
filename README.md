@@ -11,5 +11,5 @@ You will need to have your own ROMs in the `roms/` directory with the extensions
     $ git clone --recursive https://github.com/olahol/greasyphone
     $ go get
     $ go build
-    $ ./greasyphone
+    $ ./greasyphone ./roms
     $ $BROWSER http://localhost:5000
