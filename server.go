@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"encoding/json"
+	"flag"
 	"io/fs"
 	"log"
 	"net/http"
@@ -74,6 +75,14 @@ func MustSub(fsys fs.FS, dir string) fs.FS {
 }
 
 func main() {
+	flag.Parse()
+
+	roms := flag.Arg(0)
+
+	if roms == "" {
+		log.Fatalln("no rom dir")
+	}
+
 	r := gin.New()
 	m := melody.New()
 	g := &Game{}
@@ -82,7 +91,7 @@ func main() {
 	r.StaticFS("/jsnes/source/", http.FS(MustSub(jsnesSourceDir, "jsnes/source")))
 	r.StaticFS("/public/", http.FS(MustSub(publicDir, "public")))
 
-	r.Static("/roms/", "./roms")
+	r.Static("/roms/", roms)
 
 	r.GET("/", func(c *gin.Context) {
 		c.Writer.Write(indexHTML)
@@ -93,7 +102,7 @@ func main() {
 	})
 
 	r.GET("/romlist", func(c *gin.Context) {
-		files, _ := filepath.Glob("./roms/*.nes")
+		files, _ := filepath.Glob(filepath.Join(roms, "*.nes"))
 		c.JSON(200, gin.H{"roms": files})
 	})
 
