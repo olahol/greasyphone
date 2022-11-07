@@ -226,8 +226,10 @@
 
   Game.prototype.getROMs = function () {
     var $sel = this.$selector;
-    $.getJSON("/romlist", function (data) {
-      $.each(data.roms, function (i, rom) {
+    $.get("/romlist", function (data) {
+      var roms = data.split(",");
+
+      roms.forEach(function (rom) {
         var $option = $("<option>");
         $option.text(rom);
         $option.val(rom);

@@ -8,9 +8,9 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"strings"
 	"sync"
 
-	"github.com/gin-gonic/gin"
 	"github.com/olahol/melody"
 )
 
@@ -83,27 +83,35 @@ func main() {
 		log.Fatalln("no rom dir")
 	}
 
-	r := gin.New()
+	files, err := filepath.Glob(filepath.Join(roms, "*.nes"))
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 	m := melody.New()
 	g := &Game{}
 
-	r.StaticFS("/jsnes/lib/", http.FS(MustSub(jsnesLibDir, "jsnes/lib")))
-	r.StaticFS("/jsnes/source/", http.FS(MustSub(jsnesSourceDir, "jsnes/source")))
-	r.StaticFS("/public/", http.FS(MustSub(publicDir, "public")))
+	http.Handle("/jsnes/lib/", http.FileServer(http.FS(jsnesLibDir)))
+	http.Handle("/jsnes/source/", http.FileServer(http.FS(jsnesSourceDir)))
+	http.Handle("/public/", http.FileServer(http.FS(publicDir)))
+	http.Handle("/roms/", http.StripPrefix("/roms/", http.FileServer(http.Dir(roms))))
 
-	r.Static("/roms/", roms)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			http.NotFound(w, r)
+			return
+		}
 
-	r.GET("/", func(c *gin.Context) {
-		c.Writer.Write(indexHTML)
+		w.Write(indexHTML)
 	})
 
-	r.GET("/ws", func(c *gin.Context) {
-		m.HandleRequest(c.Writer, c.Request)
+	http.HandleFunc("/romlist", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(strings.Join(files, ",")))
 	})
 
-	r.GET("/romlist", func(c *gin.Context) {
-		files, _ := filepath.Glob(filepath.Join(roms, "*.nes"))
-		c.JSON(200, gin.H{"roms": files})
+	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		m.HandleRequest(w, r)
 	})
 
 	m.HandleConnect(func(s *melody.Session) {
@@ -192,5 +200,5 @@ func main() {
 		g.Lock.Unlock()
 	})
 
-	r.Run(":5000")
+	http.ListenAndServe(":5000", nil)
 }
