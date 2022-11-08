@@ -4,6 +4,7 @@ import (
 	"embed"
 	"encoding/json"
 	"flag"
+	"fmt"
 	"io/fs"
 	"log"
 	"net/http"
@@ -75,6 +76,8 @@ func MustSub(fsys fs.FS, dir string) fs.FS {
 }
 
 func main() {
+	port := flag.Int("p", 5000, "port to listen on")
+
 	flag.Parse()
 
 	roms := flag.Arg(0)
@@ -200,5 +203,5 @@ func main() {
 		g.Lock.Unlock()
 	})
 
-	http.ListenAndServe(":5000", nil)
+	http.ListenAndServe(fmt.Sprint(":", *port), nil)
 }
