@@ -132,18 +132,17 @@ func main() {
 
 		switch cmd.Cmd {
 		case "screen":
-
 			if g.Screen == nil {
 				g.Lock.Lock()
 				g.Screen = s
 				s.Write(NewCommandJSON("whoami", "screen"))
 				m.BroadcastOthers(NewCommandJSON("join", "screen"), s)
 				g.Lock.Unlock()
+				log.Println("screen connected")
 				return
 			}
 
 			s.Write(NewCommandJSON("whoami", "notscreen"))
-
 		case "player":
 			if g.Player1 == nil {
 				g.Lock.Lock()
@@ -151,6 +150,7 @@ func main() {
 				s.Write(NewCommandJSON("whoami", "player1"))
 				m.BroadcastOthers(NewCommandJSON("join", "player1"), s)
 				g.Lock.Unlock()
+				log.Println("player 1 connected")
 				return
 			}
 
@@ -160,6 +160,7 @@ func main() {
 				s.Write(NewCommandJSON("whoami", "player2"))
 				m.BroadcastOthers(NewCommandJSON("join", "player2"), s)
 				g.Lock.Unlock()
+				log.Println("player 2 connected")
 				return
 			}
 
@@ -178,7 +179,7 @@ func main() {
 				g.Screen.Write(NewCommandJSON(player, cmd.Cmd+" "+cmd.Data))
 			}
 		default:
-			log.Printf("unknown command %s", cmd.Cmd)
+			log.Printf("unknown command %s\n", cmd.Cmd)
 		}
 	})
 
@@ -188,20 +189,25 @@ func main() {
 		if s == g.Screen {
 			g.Screen = nil
 			m.BroadcastOthers(NewCommandJSON("part", "screen"), s)
+			log.Println("screen disconnected")
 		}
 
 		if s == g.Player1 {
 			g.Player1 = nil
 			m.BroadcastOthers(NewCommandJSON("part", "player1"), s)
+			log.Println("player 1 disconnected")
 		}
 
 		if s == g.Player2 {
 			g.Player2 = nil
 			m.BroadcastOthers(NewCommandJSON("part", "player2"), s)
+			log.Println("player 2 disconnected")
 		}
 
 		g.Lock.Unlock()
 	})
+
+	log.Printf("listening on http://localhost:%d", *port)
 
 	http.ListenAndServe(fmt.Sprint(":", *port), nil)
 }
