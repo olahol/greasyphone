@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/fs"
 	"log"
 	"net/http"
 	"path/filepath"
@@ -63,16 +62,6 @@ func (g *Game) Status() []byte {
 	}
 
 	return NewCommandJSON("status", data)
-}
-
-func MustSub(fsys fs.FS, dir string) fs.FS {
-	f, err := fs.Sub(fsys, dir)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return f
 }
 
 func main() {
