@@ -29,8 +29,11 @@
     }
 
     #emulator canvas {
-      zoom: 300%;
-      -moz-transform: scale(3);
+      width: 768px;
+      height: 720px;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: pixelated;
     }
 
     #selector {
