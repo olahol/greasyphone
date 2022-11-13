@@ -121,45 +121,41 @@ func main() {
 
 		switch cmd.Cmd {
 		case "screen":
-			if g.Screen == nil {
-				g.Lock.Lock()
-				g.Screen = s
-				s.Write(NewCommandJSON("whoami", "screen"))
-				m.BroadcastOthers(NewCommandJSON("join", "screen"), s)
-				g.Lock.Unlock()
-				log.Println("screen connected")
+			if g.Screen != nil {
+				s.Write(NewCommandJSON("whoami", "notscreen"))
 				return
 			}
 
-			s.Write(NewCommandJSON("whoami", "notscreen"))
+			g.Lock.Lock()
+			defer g.Lock.Unlock()
+
+			g.Screen = s
+			s.Write(NewCommandJSON("whoami", "screen"))
+			m.BroadcastOthers(NewCommandJSON("join", "screen"), s)
+			log.Println("screen connected")
 		case "player":
+			if g.Player1 != nil && g.Player2 != nil {
+				s.Write(NewCommandJSON("whoami", "notplayer"))
+				return
+			}
+
+			g.Lock.Lock()
+			defer g.Lock.Unlock()
+
 			if g.Player1 == nil {
-				g.Lock.Lock()
 				g.Player1 = s
 				s.Write(NewCommandJSON("whoami", "player1"))
 				m.BroadcastOthers(NewCommandJSON("join", "player1"), s)
-				g.Lock.Unlock()
 				log.Println("player 1 connected")
-				return
-			}
-
-			if g.Player2 == nil {
-				g.Lock.Lock()
+			} else {
 				g.Player2 = s
 				s.Write(NewCommandJSON("whoami", "player2"))
 				m.BroadcastOthers(NewCommandJSON("join", "player2"), s)
-				g.Lock.Unlock()
 				log.Println("player 2 connected")
-				return
 			}
-
-			s.Write(NewCommandJSON("whoami", "notplayer"))
 		case "keyup", "keydown":
 			if g.Screen != nil && (s == g.Player1 || s == g.Player2) {
-				var player string
-				if s == g.Player1 {
-					player = "player1"
-				}
+				player := "player1"
 
 				if s == g.Player2 {
 					player = "player2"
