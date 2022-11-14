@@ -170,26 +170,22 @@ func main() {
 
 	m.HandleDisconnect(func(s *melody.Session) {
 		g.Lock.Lock()
+		defer g.Lock.Unlock()
 
-		if s == g.Screen {
+		switch {
+		case s == g.Screen:
 			g.Screen = nil
 			m.BroadcastOthers(NewCommandJSON("part", "screen"), s)
 			log.Println("screen disconnected")
-		}
-
-		if s == g.Player1 {
+		case s == g.Player1:
 			g.Player1 = nil
 			m.BroadcastOthers(NewCommandJSON("part", "player1"), s)
 			log.Println("player 1 disconnected")
-		}
-
-		if s == g.Player2 {
+		case s == g.Player2:
 			g.Player2 = nil
 			m.BroadcastOthers(NewCommandJSON("part", "player2"), s)
 			log.Println("player 2 disconnected")
 		}
-
-		g.Lock.Unlock()
 	})
 
 	log.Printf("listening on http://localhost:%d", *port)
