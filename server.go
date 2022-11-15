@@ -81,6 +81,10 @@ func main() {
 		log.Fatalln(err)
 	}
 
+	for i, file := range files {
+		log.Printf("game %d: %s\n", i+1, file)
+	}
+
 	m := melody.New()
 	g := &Game{}
 
