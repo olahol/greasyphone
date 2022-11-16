@@ -84,7 +84,7 @@
     }
 
     $.ajax({
-      url: escape(url),
+      url: encodeURI(url),
       xhr: function() {
         var xhr = $.ajaxSettings.xhr();
         xhr.overrideMimeType("text/plain; charset=x-user-defined");

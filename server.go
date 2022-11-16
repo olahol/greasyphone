@@ -18,7 +18,7 @@ var (
 	//go:embed jsnes/source/*.js
 	jsnesSourceDir embed.FS
 
-	//go:embed jsnes/lib/*.js
+	//go:embed jsnes/lib/*
 	jsnesLibDir embed.FS
 
 	//go:embed public/*
@@ -35,8 +35,8 @@ type Command struct {
 
 func NewCommandJSON(cmd string, data string) []byte {
 	res := &Command{cmd, data}
-	byt, _ := json.Marshal(res)
-	return byt
+	bs, _ := json.Marshal(res)
+	return bs
 }
 
 type Game struct {
@@ -58,7 +58,7 @@ func (g *Game) Status() []byte {
 	}
 
 	if g.Player2 != nil {
-		data += "player2,"
+		data += "player2"
 	}
 
 	return NewCommandJSON("status", data)
